@@ -1,24 +1,28 @@
-%Q5-Type I
+%Q7-Type III A & B bode plots
 clear
 clearvars
 clc
 close all
 
-% Values for TypeIII-A: R_f1, R_C1, R_f3, C_C1, C_C2, C_f3
-% R_f1 = ; % Replace with your specific value
-% R_C1 = ; % Replace with your specific value
-% R_f3 = ; % Replace with your specific value
-% C_C1 = ; % Replace with your specific value
-% C_C2 = ; % Replace with your specific value
-% C_f3 = ; % Replace with your specific value
+is_type_A = true;
 
-% Values for TypeIII-B: R_f1, R_C1, R_f3, C_C1, C_C2, C_f3
-R_f1 = 79.96e3; % Replace with your specific value
-R_C1 = 9.139e3; % Replace with your specific value
-R_f3 = 380; % Replace with your specific value
-C_C1 = 37e-9; % Replace with your specific value
-C_C2 = 140e-12; % Replace with your specific value
-C_f3 = 2.2e-9; % Replace with your specific value
+if is_type_A
+    %Values for TypeIII-A: R_f1, R_C1, R_f3, C_C1, C_C2, C_f3
+    R_f1 = 2.9e3; % Replace with your specific value
+    R_C1 = 6.57e3; % Replace with your specific value
+    R_f3 = 720; % Replace with your specific value
+    C_C1 = 1.61e-9; % Replace with your specific value
+    C_C2 = 0.2e-9; % Replace with your specific value
+    C_f3 = 2.2e-9; % Replace with your specific value
+else    
+    % Values for TypeIII-B: R_f1, R_C1, R_f3, C_C1, C_C2, C_f3
+    R_f1 = 79.96e3; % Replace with your specific value
+    R_C1 = 9.139e3; % Replace with your specific value
+    R_f3 = 380; % Replace with your specific value
+    C_C1 = 37e-9; % Replace with your specific value
+    C_C2 = 140e-12; % Replace with your specific value
+    C_f3 = 2.2e-9; % Replace with your specific value
+end
 
 % Numerator coefficients
 numerator = [R_C1 * C_C1 * C_f3 * (R_f1 + R_f3) , (R_C1 * C_C1 + C_f3 * (R_f1 + R_f3)), 1 ];
@@ -27,7 +31,7 @@ numerator = [R_C1 * C_C1 * C_f3 * (R_f1 + R_f3) , (R_C1 * C_C1 + C_f3 * (R_f1 + 
 denominator = [R_f1 * R_C1 * C_C1 * C_C2 * R_f3 * C_f3, R_f1 * C_C1 * (R_C1 * C_C2 + R_f3 * C_f3), R_f1 * C_C1, 0];
 
 % Transfer function
-transfer_function = tf(numerator, denominator);
+transfer_function = tf(numerator, denominator)
 
 % Create the Bode plot and calculate margins
 figure;
@@ -36,9 +40,10 @@ figure;
 
 % Plot Bode plot with gain and phase margins
 margin(transfer_function);
-xlim([1 10^10]);
+xlim([1 10^10]); % Set x-axis limits to display up to 10^10 Hz
+
 % Add title and grid for better readability
-title('Bode Plot (Gain and Phase) of the Transfer Function For TypeIII-B');
+title('Bode Plot (Gain and Phase) of the Transfer Function For TypeIII-A');
 grid on;
 
 % Display gain and phase margins
