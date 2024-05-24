@@ -1,0 +1,30 @@
+* C:\Users\Levovo20x\Documents\GitHub\EE464-HW3\simulations\Q10_type_III_A.asc
+V1 5V 0 5V
+V2 -5V 0 -5V
+XU1 Vref N001 5V -5V Ve level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Rc1 N002 N001 {Rc1}
+Cc1 Ve N002 {Cc1}
+Cc2 Ve N001 {Cc2}
+V3 Vref 0 1.2
+Rf2 N001 0 {Rf2}
+Cf3 N005 N001 {Cf3}
+Rf3 Vout N005 {Rf3}
+Rf1 Vout N001 {Rf1}
+V§Triangular N007 0 PULSE(0 1.8 0 4u 1p 1p 4.005u)
+XU2 Ve N007 5V 0 Vgate level2 Avol=1Meg GBW=50Meg Slew=50Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Vin N003 0 PWL(0 5 7.5m 5 7.501m 4)
+S1 N003 N004 Vgate 0 MYSW
+D1 0 N004 Didl
+L1 N004 Vout 8µH IC=4A
+R2 Vout N006 0.2
+C1 N006 0 8µF IC=3.3V
+R3 Vout 0 0.8125
+.model D D
+.lib C:\Users\Levovo20x\AppData\Local\LTspice\lib\cmp\standard.dio
+.param Cf3=2.2n Rf3=720 Rf1=2.9k Rf2=1.66k Rc1=6.57k Cc1=1.61n Cc2=0.2n
+.model MYSW SW(Ron=10m Roff=1Meg Vt=.5 Vh=-.4)
+.model Didl D(Ron=0.0001 Roff=100G Vfwd=0)
+.tran 10ms
+.lib UniversalOpAmp2.lib
+.backanno
+.end
